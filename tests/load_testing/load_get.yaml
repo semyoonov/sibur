@@ -1,0 +1,19 @@
+overload:
+  enabled: true
+  package: yandextank.plugins.DataUploader
+  token_file: "token.txt"
+phantom:
+  address: 51.250.48.50:5000
+  uris:
+    - /show
+    - /
+    - /show?tab=start
+    - /logout
+  timeout: 30s
+  load_profile:
+    load_type: rps
+    schedule: step(10, 100, 5, 10)
+console:
+  enabled: true
+telegraf:
+  enabled: true

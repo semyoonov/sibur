@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма</title>
+    <style>
+        /* Сброс стилей */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Основные стили страницы */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #e9f1f5, #d5e6f1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        h1 {
+            color: #02818a;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Контейнер для формы */
+        #formDiv {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 600px;
+            text-align: left;
+        }
+
+        label {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            display: block;
+            color: #02818a;
+        }
+
+        select, input[type="text"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        input[type="text"]:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #02818a; /* Цвет рамки при фокусе */
+            box-shadow: 0 0 5px rgba(2, 129, 138, 0.5);
+        }
+
+        /* Кнопки Submit и Home */
+        .button {
+            background-color: #02818a;
+            color: #fff;
+            border: none;
+            padding: 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .button:hover {
+            background-color: #026b6b;
+            transform: scale(1.05);
+        }
+
+        .button:focus {
+            outline: none;
+        }
+
+        /* Цвета для текста */
+        .info {
+            color: #4285f4;
+        }
+
+        .warn {
+            color: #f4b400;
+        }
+
+        .crit {
+            color: #ea4335;
+        }
+    </style>
+</head>
+<body>
+
+<div id="formDiv">
+    <h1>Заполните форму</h1>
+
+    <form method="POST" action="/submit">
+        <label for="priority">Вид:</label>
+        <select id="priority" name="priority" onchange="changeColor()">
+            <option value="INFO" class="info">Информационная</option>
+            <option value="WARN" class="warn">Предупреждающая</option>
+            <option value="CRIT" class="crit">Критическая</option>
+        </select>
+
+        <label for="description">Проблема:</label>
+        <input type="text" id="description" name="description" required>
+
+        <label for="message">Описание:</label>
+        <textarea id="message" name="message" rows="4" cols="50" required></textarea>
+
+        <label for="type">Тип:</label>
+        <select id="type" name="type" required
+                style="width: 100%; padding: 10px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 5px; font-size: 1rem; background-color: #f9f9f9; color: #333;">
+            {% for type in types %}
+                <option value="{{ type.id }}" style="color: #333;">{{ type.full_name }}</option>
+            {% endfor %}
+        </select>
+
+
+        <input type="submit" value="Отправить" class="button">
+    </form>
+
+    <button class="button" onclick="window.location.href='/'">На главную</button>
+</div>
+
+<script>
+    function changeColor() {
+        const select = document.getElementById('priority');
+        const selectedValue = select.value;
+
+        // Сброс стилей
+        select.classList.remove('info', 'warn', 'crit');
+
+        // Добавляем новый класс в зависимости от выбранного значения
+        if (selectedValue === 'INFO') {
+            select.classList.add('info');
+        } else if (selectedValue === 'WARN') {
+            select.classList.add('warn');
+        } else if (selectedValue === 'CRIT') {
+            select.classList.add('crit');
+        }
+
+        // Применяем цвет текста для выбранного элемента
+        const selectedOption = select.options[select.selectedIndex];
+        select.style.color = getComputedStyle(selectedOption).color;
+    }
+
+    // Устанавливаем начальный цвет
+    changeColor();
+</script>
+</body>
+</html>
