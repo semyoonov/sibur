@@ -3,13 +3,6 @@
 > Система оповещения о проблемах на производстве
 > Пользователи могут зарегестрироваться, сообщить о проблеме на сайте или в tg-боте, а затем получать оповещения о проблемах на email или в tg
 
-Для запуска нужно из корня директории проекта запустить:
-
-```
-docker-compose build
-docker-compose up
-```
-
 <details>
 
 <summary>Тестирование</summary>
@@ -20,6 +13,4 @@ docker-compose up
 
 </details>
 
-[Макет дизайна можно найти здесь](https://pixso.net/app/editor/PuZalxzDhabtS7raL_GR8Q?icon_type=1&page-id=0%3A1)(или [pdf](./design.pdf))
 
-[Презентация](./slides.pdf)
